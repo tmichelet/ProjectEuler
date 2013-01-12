@@ -16,21 +16,17 @@ public class Problem2 {
 
 	@Test
 	public void testFibonacci() {
-		assertEquals(2, fibonacciEvenSum(3));
-		assertEquals(10, fibonacciEvenSum(8));
-		assertEquals(10, fibonacciEvenSum(21));
-		assertEquals(4613732, fibonacciEvenSum(4000000));
+		assertEquals(2, fibonacciSumEvensUnder(3));
+		assertEquals(10, fibonacciSumEvensUnder(8));
+		assertEquals(10, fibonacciSumEvensUnder(21));
+		assertEquals(4613732, fibonacciSumEvensUnder(4000000));
 	}
 
-	private int fibonacciEvenSum(int maxNumberAllowed) {
-		
+	private int fibonacciSumEvensUnder(int maxNumberAllowed) {
+
 		if (maxNumberAllowed < 2) {
 			return 0;
 		}
-		if (maxNumberAllowed < 4) {
-			return 2;
-		}
-		
 		int sum = 2;
 		int n = 2, n_1 = 1, n_2;
 
@@ -47,4 +43,49 @@ public class Problem2 {
 		}
 	}
 
+
+	// to go further
+
+	@Test
+	public void furtherTest() throws Exception {
+		assertEquals(2, furtherFibonacciSumEvensUnder(3));
+		assertEquals(10, furtherFibonacciSumEvensUnder(8));
+		assertEquals(10, furtherFibonacciSumEvensUnder(21));
+		assertEquals(4613732, furtherFibonacciSumEvensUnder(4000000));
+		
+		try {
+			furtherFibonacciSumEvensUnder(-1);
+			fail();
+		} catch (Exception e) {
+			assertEquals(MAX_SHOULD_NOT_BE_NEGATIVE, e.getMessage());
+		}
+	}
+
+	private static String MAX_SHOULD_NOT_BE_NEGATIVE = "maximumNumber should not be negative";
+
+	
+	private int furtherFibonacciSumEvensUnder(int maxNumberAllowed) throws Exception {
+		if (maxNumberAllowed < 0) {
+			throw new Exception(MAX_SHOULD_NOT_BE_NEGATIVE);
+		}
+		
+		if (maxNumberAllowed < 2) {
+			return 0;
+		}
+		int sum = 2;
+		int n = 2, n_1 = 1, n_2;
+
+		while(true) {
+			n_2 = n_1;
+			n_1 = n;
+			n = n_1 + n_2;
+			if (n > maxNumberAllowed) {
+				return sum;
+			}
+			if (n % 2 == 0) {
+				sum += n;
+			}
+		}
+	}
+	
 }
