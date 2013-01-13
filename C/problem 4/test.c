@@ -70,12 +70,15 @@ int getHighestPalindrome() {
     
     for (i = 999; i > 0; i--) {
         if (i*999 < highestPalindromeFound) {
-            printf("highest palindrome: %d, reached for i=%d, j=%d\n", highestPalindromeFound, oldi, oldj);
+            //printf("highest palindrome: %d, reached for i=%d, j=%d\n", highestPalindromeFound, oldi, oldj);
             return highestPalindromeFound;
         }
         for (j = 999; j > 0; j--) {
             currentNumber = i*j;
-            if (currentNumber > highestPalindromeFound && isPalindrome(currentNumber) == 1) {
+            if (currentNumber < highestPalindromeFound) {
+                break;
+            }
+            if (isPalindrome(currentNumber) == 1) {
                 highestPalindromeFound = currentNumber;
                 oldi = i;
                 oldj = j;
@@ -97,7 +100,7 @@ int getHighestPalindrome_ThreeThreeDigitNumbers() {
     
     for (i = 999; i > 0; i--) {
         if (i*999*999 < highestPalindromeFound) {
-            printf("highest palindrome: %d, reached for i=%d, j=%d, k=%d\n", highestPalindromeFound, oldi, oldj, oldk);
+            //printf("highest palindrome: %d, reached for i=%d, j=%d, k=%d\n", highestPalindromeFound, oldi, oldj, oldk);
             return highestPalindromeFound;
         }
         for (j = 999; j > 0; j--) {
@@ -106,7 +109,10 @@ int getHighestPalindrome_ThreeThreeDigitNumbers() {
             }
             for (k = 999; k > 0; k--) {
                 currentNumber = i*j*k;
-                if (currentNumber > highestPalindromeFound && isPalindrome(currentNumber) == 1) {
+                if (currentNumber < highestPalindromeFound) {
+                    break;
+                }
+                if (isPalindrome(currentNumber) == 1) {
                     highestPalindromeFound = currentNumber;
                     oldi = i;
                     oldj = j;
@@ -120,13 +126,19 @@ int getHighestPalindrome_ThreeThreeDigitNumbers() {
 }
 
 
+static void test_isHighestPalindrome() {
+    assert(getHighestPalindrome() == 906609);
+    assert(getHighestPalindrome_ThreeThreeDigitNumbers() == 967262769);
+}
+
+
 
 int main() {
     printf("STARTING TESTS \n");
     test_intToCharArray();
     test_isPalindrome();
+    test_isHighestPalindrome();
     printf("TESTS ARE ALL GREEN \n");
-    getHighestPalindrome();
     return 0;
 }
 
