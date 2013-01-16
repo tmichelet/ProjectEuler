@@ -45,7 +45,8 @@ int smallestDivisible_bruteForce(int number) {
 
 int smallestDivisible(int maxNumber) {
     if (maxNumber < 1) {
-        return 0; //TODO throw exception
+        printf("Invalid argument: maxNumber should be at least 1\n");
+        return 0;
     }
     if (maxNumber == 1) {
         return 1;
@@ -83,6 +84,7 @@ int smallestDivisible(int maxNumber) {
 }
 
 static void test_smallestDivisible() {
+    assert(smallestDivisible(-5) == 0);
     assert(smallestDivisible(1) == 1);
     assert(smallestDivisible(2) == 2);
     assert(smallestDivisible(4) == 12);
